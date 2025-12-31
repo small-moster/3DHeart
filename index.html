@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,18 +9,79 @@
     <meta name="description" content="爱心代码~">
     <link rel="shortcut icon" href="https://www.xfabe.com/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* 文字容器：水平+垂直双居中（保留原定位逻辑，优化居中） */
+        .text-container {
+            position: absolute;
+            left: 50%;
+            top: 50%; /* 沿用原love_you的垂直位置，更贴合爱心视觉 */
+            transform: translate(-50%, -50%);
+            z-index: 1809185784; /* 沿用原超高层级，确保不被遮挡 */
+            text-align: center; /* 文字内容居中 */
+            width: 80%; /* 限制宽度，避免文字溢出 */
+        }
+
+        /* 核心：融合原love_you的字体样式 + 优化行间距 */
+        .text-container p {
+            margin: 0.8rem 0; /* 行间距舒展，避免重叠 */
+            font-family: Georgia, 'Times New Roman', Times, serif; /* 原文艺衬线字体 */
+            font-size: 1.3rem; /* 原字号 */
+            font-weight: bold; /* 原加粗效果 */
+            color: #ffc0cb; /* 原浅粉色 */
+            letter-spacing: .05rem; /* 原字间距 */
+            user-select: none; /* 原禁止选中文字 */
+            /* 原白色发光效果，更适配爱心背景 */
+            -webkit-text-shadow: 0 0 8px #fff;
+            text-shadow: 0 0 8px #fff;
+            /* 原温柔动画效果 */
+            -moz-animation: love-xf 1.2s alternate ease-in-out;
+            -webkit-animation: love-xf 1.2s alternate ease-in-out;
+            animation: love-xf 1.2s alternate ease-in-out;
+        }
+
+        /* 小昭签名：稍小字号，保留所有字体样式 */
+        .text-container .sign {
+            font-size: 1.1rem; /* 签名稍小，更协调 */
+            margin-top: 1.2rem; /* 与上一行拉开距离 */
+            /* 继承上面所有字体/动画/发光样式，无需重复写 */
+        }
+
+        /* 音频样式（静音自动播放） */
+        audio {
+            display: none; /* 隐藏控件，想要显示可删掉 */
+        }
+    </style>
 </head>
-
 <body>
-    <p class="love_you">❤小贾，新岁将启，愿2026的你，所遇皆欢，所得皆喜❤<br><br><br>
-    ❤❤❤❤❤❤❤❤小昭❤❤❤❤❤❤❤❤
+    <!-- 文字容器：新格式 + 原字体样式 -->
+    <div class="text-container">
+        <p>💖亲爱的贾小姐💖</p>
+        <p>💖新岁将启，愿2026的你，所遇皆欢，所得皆喜💖</p>
+        <p>💖心之所向，皆是坦途 —— 我心眷你，岁岁如此💖</p>
+        <p class="sign">💖小昭💖</p>
+    </div>
 
-    </p>
-    <!-- 这里替换音乐 -->
-    <audio src="lovexf.mp3" autoplay="autoplay" loop="loop" controls="controls"></audio>
+    <!-- 音频（自动播放） -->
+    <audio id="bgm" src="lovexf.mp3" autoplay loop muted></audio>
+
+    <!-- 爱心画布 -->
     <canvas id="lovexf"></canvas>
+
+    <!-- 脚本：点击解锁音频静音 + 原有爱心脚本 -->
     <script src="script.js"></script>
     <script src="https://player.xfyun.club/love-wuminjun/love.click.js"></script>
+    <script>
+        // 点击解锁音频静音
+        function unlockAudio() {
+            const audio = document.getElementById('bgm');
+            audio.muted = false;
+            audio.play().catch(err => console.log("播放失败：", err));
+            document.removeEventListener('click', unlockAudio);
+            document.removeEventListener('touchstart', unlockAudio);
+        }
+        document.addEventListener('click', unlockAudio);
+        document.addEventListener('touchstart', unlockAudio);
+        window.onload = () => document.getElementById('bgm').play().catch(() => {});
+    </script>
 </body>
-
 </html>
