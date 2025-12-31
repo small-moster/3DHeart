@@ -1,5 +1,5 @@
 {
   "outputDirectory": ".",
-  "buildCommand": "echo 'No build needed'",
-  "includeFiles": ["index.html", "vercel.json"]
+  "buildCommand": "echo 'No build needed'"
+
 }
